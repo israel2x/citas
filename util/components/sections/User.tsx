@@ -26,8 +26,8 @@ const useStyles = createStyles((theme) => ({
 export default function User() {
   const { classes } = useStyles();
 
-  const name = "John Doe Test";
-  const email = "john@doe.com";
+  const name = "Thalia Bustamante";
+  const email = "jazmin89@gmail.com";
 
   const initials = name.split(" ").map((word) => word[0]);
 

@@ -89,41 +89,39 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Nextine</title>
-        <meta name="description" content="A Nextine főoldala." />
+        <title>Citas Thalia Bustamante</title>
+        <meta
+          name="description"
+          content="Citas Thalia Bustamante, La Troncal, Ecuador"
+        />
       </Head>
 
       <Container className={classes.wrapper} size={1400}>
         <div className={classes.inner}>
           <Title className={classes.title}>
-            Üdvözöljük újra,{" "}
-            <Text component="span" color={theme.primaryColor} inherit>
+            Citas Lic. Thalia Bustamante
+            {/* <Text component="span" color={theme.primaryColor} inherit>
               NÉV
             </Text>
-            !
+            ! */}
           </Title>
 
           <Container p={0} size={600}>
             <Text size="lg" color="dimmed" className={classes.description}>
-              Tekintse meg az esetleges új jelentkezéseket vagy pillantson rá
-              üzeneteire!
+              Bienvenido al aplicativo Smart Citas de agendamiento de citas y
+              pacientes
             </Text>
           </Container>
 
           <div className={classes.controls}>
-            <Link href="/users">
-              <Button
-                className={classes.control}
-                size="lg"
-                variant="default"
-                color="gray"
-              >
-                Felhasználók
+            <Link href="/citas" passHref>
+              <Button className={classes.control} size="lg">
+                Citas
               </Button>
             </Link>
-            <Link href="/messages">
+            <Link href="/pacientes" passHref>
               <Button className={classes.control} size="lg">
-                Üzenetek
+                Pacientes
               </Button>
             </Link>
           </div>

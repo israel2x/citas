@@ -20,7 +20,7 @@ export default function HeaderComponent(props) {
           />
         </MediaQuery>
 
-        <Text size="lg">Nextine - A NextJS és Mantine projekt</Text>
+        <Text size="lg">Smart Citas</Text>
 
         <div
           style={{
@@ -31,7 +31,7 @@ export default function HeaderComponent(props) {
           }}
         >
           <ActionIcon
-            title="Szín beállítás"
+            title="Modo Oscuro"
             onClick={props.toggleColorScheme}
             size="lg"
             radius="md"
