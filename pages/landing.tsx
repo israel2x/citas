@@ -24,7 +24,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 //import Image from "next/image";
 import imageSVG from "../public/image.svg";
-import Thalia_Bustamante_La_Troncal from "../public/Thalia_Bustamante_La_Troncal.jpeg";
+import Thalia_Bustamante_La_Troncal from "../public/Thalia_Bustamante_La_Troncal.png";
 
 const HEADER_HEIGHT = 60;
 
@@ -107,11 +107,16 @@ const useStyles = createStyles((theme) => ({
   },
 
   //////////
+
+  inner2: {
+    backgroundColor: "#E1F0F4",
+  },
+
   inner: {
     display: "flex",
     justifyContent: "space-between",
     paddingTop: theme.spacing.xl * 2,
-    paddingBottom: theme.spacing.xl * 2,
+    paddingBottom: theme.spacing.xl * 3,
   },
 
   content: {
@@ -164,6 +169,7 @@ const useStyles = createStyles((theme) => ({
     borderTop: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
     }`,
+    backgroundColor: "white",
   },
 
   innerFooter: {
@@ -232,7 +238,7 @@ const Landing = () => {
   ));
 
   return (
-    <div>
+    <div className={classes.inner2}>
       <Header height={HEADER_HEIGHT} className={classes.root}>
         <Container className={classes.header}>
           {/* <MantineLogo size={28} /> */}
@@ -262,7 +268,7 @@ const Landing = () => {
         </Container>
       </Header>
 
-      <Container>
+      <Container className={classes.inner2}>
         <div className={classes.inner}>
           <div className={classes.content}>
             <Title className={classes.title}>
@@ -318,7 +324,7 @@ const Landing = () => {
           </div>
           {/*  <Image src={image.src} className={classes.image} /> */}
           <Image
-            src="Thalia_Bustamante_La_Troncal.jpeg"
+            src="Thalia_Bustamante_La_Troncal.png"
             className={classes.image}
             alt="Lic. Thalia Bustamante"
             caption="Lic. Thalia Bustamante"
