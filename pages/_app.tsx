@@ -5,13 +5,10 @@ import { NotificationsProvider } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
 import { StoreProvider } from "easy-peasy";
 import { store } from "../util/store/store";
-
-import Header from "../util/components/sections/Header";
-import Navbar from "../util/components/sections/Navbar";
+import InicioLayout from "../util/components/inicioLayout";
 
 function Application({ Component, pageProps }) {
-  const [opened, setOpened] = useState(false);
-  const [colorScheme, setColorScheme] = useState("dark");
+  const [colorScheme, setColorScheme] = useState("light");
 
   const toggleColorScheme = () => {
     setColorScheme(colorScheme === "light" ? "dark" : "light");
@@ -32,29 +29,13 @@ function Application({ Component, pageProps }) {
           <NotificationsProvider>
             <ModalsProvider>
               <StoreProvider store={store}>
-                <AppShell
-                  padding="md"
-                  navbarOffsetBreakpoint="sm"
-                  asideOffsetBreakpoint="sm"
-                  header={
-                    <Header
-                      opened={opened}
-                      setOpened={setOpened}
-                      toggleColorScheme={toggleColorScheme}
-                    />
-                  }
-                  navbar={<Navbar opened={opened} />}
-                  styles={(theme) => ({
-                    main: {
-                      backgroundColor:
-                        theme.colorScheme === "dark"
-                          ? theme.colors.dark[8]
-                          : theme.colors.gray[0],
-                    },
-                  })}
-                >
+                {Component.authPage ? (
                   <Component {...pageProps} />
-                </AppShell>
+                ) : (
+                  <InicioLayout>
+                    <Component {...pageProps} />
+                  </InicioLayout>
+                )}
               </StoreProvider>
             </ModalsProvider>
           </NotificationsProvider>

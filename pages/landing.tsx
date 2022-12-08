@@ -8,16 +8,110 @@ import {
   Text,
   List,
   ThemeIcon,
+  ActionIcon,
+  Header,
+  Burger,
+  Paper,
+  Transition,
 } from "@mantine/core";
-import { IconCheck } from "@tabler/icons";
-import image from "../public/image.svg";
+import {
+  IconCheck,
+  IconBrandTwitter,
+  IconBrandYoutube,
+  IconBrandInstagram,
+} from "@tabler/icons";
+import { useDisclosure } from "@mantine/hooks";
+import { useState } from "react";
+//import Image from "next/image";
+import imageSVG from "../public/image.svg";
+import Thalia_Bustamante_La_Troncal from "../public/Thalia_Bustamante_La_Troncal.jpeg";
+
+const HEADER_HEIGHT = 60;
 
 const useStyles = createStyles((theme) => ({
+  root: {
+    position: "relative",
+    zIndex: 1,
+  },
+
+  dropdown: {
+    position: "absolute",
+    top: HEADER_HEIGHT,
+    left: 0,
+    right: 0,
+    zIndex: 0,
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
+    borderTopWidth: 0,
+    overflow: "hidden",
+
+    [theme.fn.largerThan("sm")]: {
+      display: "none",
+    },
+  },
+
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: "100%",
+  },
+
+  linksHeader: {
+    [theme.fn.smallerThan("sm")]: {
+      display: "none",
+    },
+  },
+
+  burger: {
+    [theme.fn.largerThan("sm")]: {
+      display: "none",
+    },
+  },
+
+  linkHeader: {
+    display: "block",
+    lineHeight: 1,
+    padding: "8px 12px",
+    borderRadius: theme.radius.sm,
+    textDecoration: "none",
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[7],
+    fontSize: theme.fontSizes.sm,
+    fontWeight: 500,
+
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[6]
+          : theme.colors.gray[0],
+    },
+
+    [theme.fn.smallerThan("sm")]: {
+      borderRadius: 0,
+      padding: theme.spacing.md,
+    },
+  },
+
+  linkActiveHeader: {
+    "&, &:hover": {
+      backgroundColor: theme.fn.variant({
+        variant: "light",
+        color: theme.primaryColor,
+      }).background,
+      color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
+        .color,
+    },
+  },
+
+  //////////
   inner: {
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: theme.spacing.xl * 4,
-    paddingBottom: theme.spacing.xl * 4,
+    paddingTop: theme.spacing.xl * 2,
+    paddingBottom: theme.spacing.xl * 2,
   },
 
   content: {
@@ -65,23 +159,121 @@ const useStyles = createStyles((theme) => ({
     borderRadius: theme.radius.sm,
     padding: "4px 12px",
   },
+
+  footer: {
+    borderTop: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
+    }`,
+  },
+
+  innerFooter: {
+    //css del footer
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingTop: theme.spacing.xl,
+    paddingBottom: theme.spacing.xl,
+
+    [theme.fn.smallerThan("xs")]: {
+      flexDirection: "column",
+    },
+  },
+
+  links: {
+    [theme.fn.smallerThan("xs")]: {
+      marginTop: theme.spacing.md,
+    },
+  },
 }));
 
-export default function Landing() {
-  const { classes } = useStyles();
+interface HeaderResponsiveProps {
+  links: { link: string; label: string }[];
+}
+
+const links = [
+  {
+    link: "/landing",
+    label: "Inicio",
+  },
+  {
+    link: "/",
+    label: "Nosotros",
+  },
+  {
+    link: "/",
+    label: "Noticias",
+  },
+  {
+    link: "/citas",
+    label: "Citas",
+  },
+];
+
+const Landing = () => {
+  const [opened, { toggle, close }] = useDisclosure(false);
+  const [active, setActive] = useState(links[0].link);
+  const { classes, cx } = useStyles();
+
+  const items = links.map((link) => (
+    <a
+      key={link.label}
+      href={link.link}
+      className={cx(classes.linkHeader, {
+        [classes.linkActiveHeader]: active === link.link,
+      })}
+      onClick={(event) => {
+        event.preventDefault();
+        setActive(link.link);
+        close();
+      }}
+    >
+      {link.label}
+    </a>
+  ));
+
   return (
     <div>
+      <Header height={HEADER_HEIGHT} className={classes.root}>
+        <Container className={classes.header}>
+          {/* <MantineLogo size={28} /> */}
+          <Text>TB</Text>
+          <Group spacing={5} className={classes.linksHeader}>
+            {items}
+          </Group>
+
+          <Burger
+            opened={opened}
+            onClick={toggle}
+            className={classes.burger}
+            size="sm"
+          />
+
+          <Transition
+            transition="pop-top-right"
+            duration={200}
+            mounted={opened}
+          >
+            {(styles) => (
+              <Paper className={classes.dropdown} withBorder style={styles}>
+                {items}
+              </Paper>
+            )}
+          </Transition>
+        </Container>
+      </Header>
+
       <Container>
         <div className={classes.inner}>
           <div className={classes.content}>
             <Title className={classes.title}>
-              A <span className={classes.highlight}>modern</span> React <br />{" "}
-              components library
+              Centro de Terapia de
+              <span className={classes.highlight}>Lenguaje</span>
             </Title>
             <Text color="dimmed" mt="md">
-              Build fully functional accessible web applications faster than
-              ever – Mantine includes more than 120 customizable components and
-              hooks to cover you in any situation
+              La Terapia Auditivo Verbal es un enfoque terapéutico para la
+              educación de los niños sordos en el que se enfatiza el desarrollo
+              de las habilidades auditivas para desarrollar el lenguaje a través
+              de la audición.
             </Text>
 
             <List
@@ -95,36 +287,68 @@ export default function Landing() {
               }
             >
               <List.Item>
-                <b>TypeScript based</b> – build type safe applications, all
-                components and hooks export types
+                <b>Detectar</b> – la discapacidad auditiva lo antes posible a
+                través de programas del diagnóstico precoz.
               </List.Item>
               <List.Item>
-                <b>Free and open source</b> – all packages have MIT license, you
-                can use Mantine in any project
+                <b>Orientar</b> – asesorar y apoyar a los padres, las madres y
+                cuidadores como modelos principales para el desarrollo del
+                lenguaje hablado y para ayudarles a entender el impacto de la
+                sordera y la discapacidad auditiva en toda la familia.
               </List.Item>
               <List.Item>
-                <b>No annoying focus ring</b> – focus ring will appear only when
-                user navigates with keyboard
+                <b>Ayudar</b> – a los niños y niñas a integrar la escucha en su
+                desarrollo de la comunicación y las habilidades sociales.
               </List.Item>
             </List>
 
             <Group mt={30}>
               <Button radius="xl" size="md" className={classes.control}>
-                Get started
+                Agendar Cita
               </Button>
-              <Button
+              {/*  <Button
                 variant="default"
                 radius="xl"
                 size="md"
                 className={classes.control}
               >
                 Source code
-              </Button>
+              </Button> */}
             </Group>
           </div>
-          <Image src={image.src} className={classes.image} />
+          {/*  <Image src={image.src} className={classes.image} /> */}
+          <Image
+            src="Thalia_Bustamante_La_Troncal.jpeg"
+            className={classes.image}
+            alt="Lic. Thalia Bustamante"
+            caption="Lic. Thalia Bustamante"
+          />
         </div>
       </Container>
+
+      <div className={classes.footer}>
+        <Container className={classes.innerFooter}>
+          {/*  <MantineLogo size={28} /> */}
+          <Text>La Troncal, Ecuador</Text>
+          <Group spacing="xs" className={classes.links} position="right" noWrap>
+            <ActionIcon size="lg" variant="default" radius="xl">
+              <IconBrandInstagram size={18} stroke={1.5} />
+            </ActionIcon>
+
+            <ActionIcon size="lg" variant="default" radius="xl">
+              <IconBrandYoutube size={18} stroke={1.5} />
+            </ActionIcon>
+
+            <ActionIcon size="lg" variant="default" radius="xl">
+              <IconBrandTwitter size={18} stroke={1.5} />
+            </ActionIcon>
+          </Group>
+        </Container>
+      </div>
     </div>
   );
-}
+};
+
+Landing.authPage = true;
+
+export default Landing;
