@@ -16,35 +16,35 @@ const MOCKUP_USERS = [
     name: "John Doe",
     email: "john@doe.com",
     address: "Mankato Mississippi 96522, Nulla st. 10",
-    workplace: "Samsung",
+    workplace: "45",
     phone: "(257) 563-7401",
   },
   {
     name: "Cecilia Chapman",
     email: "Cecilia@doe.com",
     address: "Tamuning PA 10855, Sodales Av. 4264",
-    workplace: "Apple",
+    workplace: "38",
     phone: "(786) 713-8616",
   },
   {
     name: "Kyla Olsen",
     email: "Kyla@doe.com",
     address: "Chelsea MI 67708, Nunc Road 4",
-    workplace: "Microsoft",
+    workplace: "27",
     phone: "(947) 278-5929",
   },
   {
     name: "Nyssa Vazquez",
     email: "Nyssa@doe.com",
     address: "Latrobe DE 38100, Viverra. Avenue",
-    workplace: "Google",
+    workplace: "32",
     phone: "(608) 265-2215",
   },
   {
     name: "Aaron Hawkins",
     email: "Aaron@doe.com",
     address: "Santa Rosa MN 98804, Tortor. Street 42",
-    workplace: "Facebook",
+    workplace: "25",
     phone: "(959) 119-8364",
   },
 ];
@@ -79,21 +79,21 @@ export default function Users(/*props*/) {
                   toggleDrawer(true);
                 }}
               >
-                Szerkesztés
+                Editar
               </Menu.Item>
               <Menu.Item icon={<Send />} onClick={() => sendMessage(user)}>
-                Üzenet küldése
+                Enviar
               </Menu.Item>
               <Divider />
               <Menu.Item icon={<Save />} onClick={() => copyProfile(user)}>
-                Másolás
+                Descargar
               </Menu.Item>
               <Menu.Item
                 icon={<Trash2 />}
                 onClick={() => deleteProfile(user)}
                 color="red"
               >
-                Felhasználó törlése
+                Eliminar
               </Menu.Item>
             </Menu>
           </td>
@@ -142,8 +142,8 @@ export default function Users(/*props*/) {
     setUsers(tmpUsers);
 
     notifications.showNotification({
-      title: "Profil szerkesztése",
-      message: `${newUser.name} profilját sikeresen szerkesztette`,
+      title: "Información Paciente",
+      message: `Paciente ${newUser.name} `,
       color: "teal",
     });
   };
@@ -155,7 +155,7 @@ export default function Users(/*props*/) {
     };
 
     const modal = modals.openModal({
-      title: "Üzenetküldés",
+      title: "Paciente",
       children: <SendMessageForm user={user} onSubmit={onSubmit} />,
       centered: true,
     });
@@ -165,8 +165,8 @@ export default function Users(/*props*/) {
     // send message to user on backend
 
     notifications.showNotification({
-      title: "Üzenetküldés",
-      message: `Az üzenetet sikeresen kézbesítettük ${user.email} címre`,
+      title: "Enviar Información",
+      message: `Paciente ${user.email} detalle`,
       color: "teal",
     });
   };
@@ -175,24 +175,24 @@ export default function Users(/*props*/) {
     clipboard.copy(JSON.stringify(user));
 
     notifications.showNotification({
-      title: "Profil másolása",
-      message: `${user.name} profilja JSON formátumban sikeresen vágólapra lett helyezve`,
+      title: "Información del Paciente",
+      message: `Paciente ${user.name} descargando la información`,
       color: "teal",
     });
   };
 
   const deleteProfile = (user) => {
     modals.openConfirmModal({
-      title: "Profil törlése",
+      title: "Eliminar Paciente",
       children: (
         <Text size="sm" lineClamp={2}>
-          Biztosan szeretné <b>{user.name}</b> profilját törölni?
+          Paciente <b>{user.name}</b> ?
           <br />
-          Ez a művelet nem visszavonható!
+          Se Elimina toda la información!
         </Text>
       ),
       centered: true,
-      labels: { confirm: "Rendben", cancel: "Mégsem" },
+      labels: { confirm: "Eliminar", cancel: "Cancelar" },
       confirmProps: { color: "red" },
       onConfirm: () => onDeleteProfile(user),
     });
@@ -206,8 +206,8 @@ export default function Users(/*props*/) {
     setUsers(tmpUsers);
 
     notifications.showNotification({
-      title: "Profil törlése",
-      message: `${user.name} profilját sikeresen törölte`,
+      title: "Paciente",
+      message: `Paciente ${user.name} detalle`,
       color: "red",
     });
   };
@@ -215,7 +215,7 @@ export default function Users(/*props*/) {
   return (
     <>
       <Head>
-        <title>Felhasználók | Nextine</title>
+        <title>Pacientes | Smart Citas</title>
         <meta
           name="description"
           content="A Nextine oldal felhasználókat kezelő oldala."
@@ -223,13 +223,13 @@ export default function Users(/*props*/) {
       </Head>
 
       <Text align="center" weight="bold" mb="xs" size="lg">
-        Felhasználók
+        Pacientes
       </Text>
 
       <Drawer
         opened={drawerOpened}
         onClose={() => toggleDrawer(false)}
-        title="Felhasználó módosítása"
+        title="Editar Paciente"
         padding="xl"
         size="xl"
       >
@@ -250,11 +250,11 @@ export default function Users(/*props*/) {
           <Table striped highlightOnHover>
             <thead>
               <tr>
-                <th>Név</th>
-                <th>E-mail cím</th>
-                <th>Lakcím</th>
-                <th>Munkahely</th>
-                <th>Telefonszám</th>
+                <th>Nombres</th>
+                <th>E-mail</th>
+                <th>Dirección</th>
+                <th>Edad</th>
+                <th>Teléfono</th>
               </tr>
             </thead>
             <tbody>{tableRows}</tbody>

@@ -25,12 +25,14 @@ const CitasLayout = () => {
 
   const [lastView, setLastView] = useState("day");
 
+  console.log(new Date());
+
   const [events, setEvents] = useState<Event[]>([
     {
-      title: "Inaguracion Consultorio",
+      title: "Cita",
       notes: "Hay que comprar el pastel",
       start: new Date(),
-      end: addHours(new Date(), 2),
+      end: addHours(new Date(), 1),
       bgColor: "#fafafa",
       user: {
         _id: "123",
@@ -42,12 +44,48 @@ const CitasLayout = () => {
       title: "Cita",
       notes: "Hay que comprar el pastel",
       start: addHours(new Date(), 3),
-      end: addHours(new Date(), 5),
+      end: addHours(new Date(), 4),
       bgColor: "#fafafa",
       user: {
         _id: "123",
         name: "Jose",
-        lastname: "LOpez",
+        lastname: "Lopez",
+      },
+    },
+    {
+      title: "Cita",
+      notes: "Hay que comprar el pastel",
+      start: addHours(new Date(), 6),
+      end: addHours(new Date(), 7),
+      bgColor: "#fafafa",
+      user: {
+        _id: "123",
+        name: "Enrique",
+        lastname: "Gómez",
+      },
+    },
+    {
+      title: "Cita",
+      notes: "Hay que comprar el pastel",
+      start: addHours(new Date(), 24),
+      end: addHours(new Date(), 25),
+      bgColor: "#fafafa",
+      user: {
+        _id: "123",
+        name: "Rosa",
+        lastname: "Caranqui",
+      },
+    },
+    {
+      title: "Cita",
+      notes: "Hay que comprar el pastel",
+      start: addHours(new Date(), 27),
+      end: addHours(new Date(), 28),
+      bgColor: "#f17b7b",
+      user: {
+        _id: "123",
+        name: "Julia",
+        lastname: "Estrada",
       },
     },
   ]);

@@ -26,24 +26,24 @@ export default function SendMessageForm(props) {
       )}
     >
       <Text size="sm" mb={10}>
-        Üzenet küldése <b>{props.user.email}</b> címre:
+        Email del Paciente <b>{props.user.email}</b> :
       </Text>
       <TextInput
-        label="Tárgy"
-        placeholder="Tárgy"
+        label="Asunto"
+        placeholder="Asunto"
         mb={5}
         {...form.getInputProps("subject")}
       />
       <Textarea
-        label="Üzenet"
-        placeholder="Üzenet"
+        label="Mensaje"
+        placeholder="Mensaje"
         autosize
         minRows={3}
         maxRows={10}
         {...form.getInputProps("message")}
       />
       <Button style={{ marginTop: 20 }} type="submit">
-        Küldés
+        Guardar
       </Button>
     </form>
   );

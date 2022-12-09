@@ -28,37 +28,37 @@ export default function EditProfileForm(props) {
       onSubmit={form.onSubmit((values) => props.submitForm(props.data, values))}
     >
       <TextInput
-        label="Név"
-        placeholder="Név"
+        label="Nombre"
+        placeholder="Nombre"
         {...form.getInputProps("name")}
       />
 
       <TextInput
-        label="E-mail cím"
-        placeholder="E-mail cím"
+        label="E-mail"
+        placeholder="E-mail"
         {...form.getInputProps("email")}
       />
 
       <TextInput
-        label="Lakcím"
-        placeholder="Lakcím"
+        label="Dirección"
+        placeholder="Dirección"
         {...form.getInputProps("address")}
       />
 
       <TextInput
-        label="Munkahely"
-        placeholder="Munkahely"
+        label="Edad"
+        placeholder="Edad"
         {...form.getInputProps("workplace")}
       />
 
       <TextInput
-        label="Telefonszám"
-        placeholder="Telefonszám"
+        label="Teléfono"
+        placeholder="Teléfono"
         {...form.getInputProps("phone")}
       />
 
       <Button mt={20} type="submit">
-        Módosítás
+        Guardar
       </Button>
     </form>
   );

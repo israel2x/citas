@@ -17,14 +17,14 @@ export default function SearchForm(props) {
   return (
     <Group mb={20}>
       <TextInput
-        placeholder="Név, e-mail cím, lakhely stb."
+        placeholder="Nombre, edad , dirección"
         style={{ minWidth: 280, width: "20%" }}
         rightSection={props.loading && <Loader size="xs" />}
         value={search}
         onChange={(event) => setSearch(event.currentTarget.value)}
       />
       <Button leftIcon={<Search />} onClick={submitForm}>
-        Keresés
+        Buscar
       </Button>
       <Button onClick={cancelSearch} color="gray">
         <X />
