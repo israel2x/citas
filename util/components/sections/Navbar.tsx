@@ -127,7 +127,7 @@ export default function NavbarComponent(props) {
       hiddenBreakpoint="sm"
       p="md"
       height="100vh"
-      style={{ paddingTop: -70 }}
+      style={{ paddingTop: -70, backgroundColor: "#136fd8" }}
     >
       <Navbar.Section grow>
         {links}

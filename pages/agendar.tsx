@@ -1,18 +1,16 @@
+import { useState } from "react";
 import {
-  createStyles,
-  Image,
-  Container,
-  Title,
+  Stepper,
   Button,
   Group,
-  Text,
-  List,
-  ThemeIcon,
-  ActionIcon,
-  Header,
-  Burger,
-  Paper,
   Transition,
+  Container,
+  Text,
+  Burger,
+  Header,
+  ActionIcon,
+  Paper,
+  createStyles,
 } from "@mantine/core";
 import {
   IconCheck,
@@ -21,14 +19,8 @@ import {
   IconBrandInstagram,
 } from "@tabler/icons";
 import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
-//import Image from "next/image";
-import imageSVG from "../public/image.svg";
-import Thalia_Bustamante_La_Troncal from "../public/Thalia_Bustamante_La_Troncal.png";
-import Router from "next/router";
 
 const HEADER_HEIGHT = 60;
-
 const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
@@ -216,21 +208,26 @@ const links = [
   },
 ];
 
-const Landing = () => {
-  const [opened, { toggle, close }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].link);
+const Agendar = () => {
+  const [active, setActive] = useState(1);
+  const nextStep = () =>
+    setActive((current) => (current < 3 ? current + 1 : current));
+  const prevStep = () =>
+    setActive((current) => (current > 0 ? current - 1 : current));
   const { classes, cx } = useStyles();
+  const [opened, { toggle, close }] = useDisclosure(false);
+  const [activelk, setActivelk] = useState(links[0].link);
 
   const items = links.map((link) => (
     <a
       key={link.label}
       href={link.link}
       className={cx(classes.linkHeader, {
-        [classes.linkActiveHeader]: active === link.link,
+        [classes.linkActiveHeader]: activelk === link.link,
       })}
       onClick={(event) => {
         event.preventDefault();
-        setActive(link.link);
+        setActivelk(link.link);
         close();
       }}
     >
@@ -238,12 +235,8 @@ const Landing = () => {
     </a>
   ));
 
-  const handleAgendarCitas = () => {
-    Router.push("/agendar");
-  };
-
   return (
-    <div className={classes.inner2}>
+    <>
       <Header height={HEADER_HEIGHT} className={classes.root}>
         <Container className={classes.header}>
           {/* <MantineLogo size={28} /> */}
@@ -274,73 +267,40 @@ const Landing = () => {
       </Header>
 
       <Container className={classes.inner2}>
-        <div className={classes.inner}>
-          <div className={classes.content}>
-            <Title className={classes.title}>
-              Centro de Terapia de
-              <span className={classes.highlight}>Lenguaje</span>
-            </Title>
-            <Text color="dimmed" mt="md">
-              Ofrecemos un servicio de terapias personalizadas a nuestros
-              pacientes de acuerdo a sus necesidades, nuestro objetivo es
-              mejorar las habilidades comunicativas que le permitiran a su hijo
-              expresarse de manera más efectiva, así como:
-            </Text>
-
-            <List
-              mt={30}
-              spacing="sm"
-              size="sm"
-              icon={
-                <ThemeIcon size={20} radius="xl">
-                  <IconCheck size={12} stroke={1.5} />
-                </ThemeIcon>
-              }
+        <div>
+          <Stepper active={active} onStepClick={setActive} breakpoint="sm">
+            <Stepper.Step
+              label="Registro"
+              description="Registrarse"
+              allowStepSelect={active > 0}
             >
-              <List.Item>
-                <b>Potenciar</b> – el habla inteligible para que otros entiendan
-                a su hijo.
-              </List.Item>
-              <List.Item>
-                <b>Mejorar</b> – la capacidad de comprender y expresar sus
-                pensamientos, ideas y sentimientos.
-              </List.Item>
-              <List.Item>
-                <b>Perfeccionar</b> – la calidad del lenguaje, en concreto la
-                pronunciación o el lenguaje espontáneo.
-              </List.Item>
-              <List.Item>
-                <b>Desarrollo</b> – comunicativo y linguistico eficaz acorde a
-                la edad del niño.
-              </List.Item>
-            </List>
+              Paso 1: registrarse
+            </Stepper.Step>
+            <Stepper.Step
+              label="Agendar Cita"
+              description="Seleccione la fecha y hora"
+              allowStepSelect={active > 1}
+            >
+              Paso 2: escoger hora y fecha de la cita
+            </Stepper.Step>
+            <Stepper.Step
+              label="Confirmación"
+              description="Comfirmación de la Cita"
+              allowStepSelect={active > 2}
+            >
+              Paso 3: comfirmación de la cita
+            </Stepper.Step>
+            <Stepper.Completed>
+              Cita Agendada, gracias por usas nuestros servicios
+            </Stepper.Completed>
+          </Stepper>
 
-            <Group mt={30}>
-              <Button
-                radius="xl"
-                size="md"
-                className={classes.control}
-                onClick={handleAgendarCitas}
-              >
-                Agendar Cita
-              </Button>
-              {/*  <Button
-                variant="default"
-                radius="xl"
-                size="md"
-                className={classes.control}
-              >
-                Source code
-              </Button> */}
-            </Group>
-          </div>
-          {/*  <Image src={image.src} className={classes.image} /> */}
-          <Image
-            src="Thalia_Bustamante_La_Troncal.png"
-            className={classes.image}
-            alt="Lic. Thalia Bustamante"
-            caption="Lic. Thalia Bustamante"
-          />
+          <Group position="center" mt="xl">
+            <Button variant="default" onClick={prevStep}>
+              Regresar
+            </Button>
+            <Button onClick={nextStep}>Siguiente</Button>
+          </Group>
         </div>
       </Container>
 
@@ -363,10 +323,10 @@ const Landing = () => {
           </Group>
         </Container>
       </div>
-    </div>
+    </>
   );
 };
 
-Landing.authPage = true;
+Agendar.authPage = true;
 
-export default Landing;
+export default Agendar;

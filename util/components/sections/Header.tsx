@@ -1,9 +1,24 @@
-import { Burger, Header, MediaQuery, Text, ActionIcon } from "@mantine/core";
+import {
+  Burger,
+  Header,
+  MediaQuery,
+  Text,
+  ActionIcon,
+  createStyles,
+} from "@mantine/core";
 import { Sun } from "react-feather";
 
+const useStyles = createStyles((theme) => ({
+  inner2: {
+    backgroundColor: "white",
+  },
+}));
+
 export default function HeaderComponent(props) {
+  const { classes } = useStyles();
+
   return (
-    <Header height={70} p="md">
+    <Header height={70} p="md" className={classes.inner2}>
       <div
         style={{
           display: "flex",
@@ -20,7 +35,9 @@ export default function HeaderComponent(props) {
           />
         </MediaQuery>
 
-        <Text size="lg">Smart Citas</Text>
+        <Text fw="700" size="xl">
+          Smart Citas
+        </Text>
 
         <div
           style={{

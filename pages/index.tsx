@@ -11,6 +11,7 @@ import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
+    backgroundColor: "#E1F0F4",
     position: "relative",
     paddingTop: 120,
     paddingBottom: 80,

@@ -1,5 +1,5 @@
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { Grid, Container } from "@mantine/core";
+import { Grid, Container, createStyles } from "@mantine/core";
 import { Calendar, Event } from "react-big-calendar";
 import addHours from "date-fns/addHours";
 import { useState } from "react";
@@ -11,10 +11,17 @@ import { useStoreActions } from "easy-peasy";
 
 //import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 
+const useStyles = createStyles((theme) => ({
+  inner2: {
+    backgroundColor: "white",
+  },
+}));
+
 const CitasLayout = () => {
   const statusModalCitas = useStoreActions(
     (store: any) => store.changeOpenModalCitas
   );
+  const { classes } = useStyles();
 
   const [lastView, setLastView] = useState("day");
 
@@ -75,7 +82,7 @@ const CitasLayout = () => {
   };
 
   return (
-    <Container my="md">
+    <Container my="md" className={classes.inner2}>
       <Grid>
         {/* <Grid.Col xs={12}>
           <div>
