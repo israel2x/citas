@@ -18,6 +18,11 @@ import {
   MultiSelect,
   NumberInput,
   Indicator,
+  Loader,
+  Card,
+  UnstyledButton,
+  Anchor,
+  Badge,
 } from "@mantine/core";
 import {
   IconCheck,
@@ -192,6 +197,44 @@ const useStyles = createStyles((theme) => ({
       marginTop: theme.spacing.md,
     },
   },
+
+  //////////card horus
+  card: {
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
+  },
+
+  title_card: {
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    fontWeight: 700,
+  },
+
+  item_hour: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    borderRadius: theme.radius.md,
+    height: 90,
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : "#C5DEFA",
+    transition: "box-shadow 150ms ease, transform 100ms ease",
+
+    "&:hover": {
+      boxShadow: `${theme.shadows.md} !important`,
+      transform: "scale(1.05)",
+    },
+  },
+
+  item_hourb: {
+    "&:hover": {
+      boxShadow: `${theme.shadows.md} !important`,
+      transform: "scale(1.05)",
+    },
+  },
 }));
 
 interface HeaderResponsiveProps {
@@ -215,6 +258,18 @@ const links = [
     link: "/citas",
     label: "Citas",
   },
+];
+
+const mockdata = [
+  { title: "9:00", color: "violet" },
+  { title: "10:00", color: "indigo" },
+  { title: "11:00", color: "blue" },
+  { title: "12:00", color: "green" },
+  { title: "14:00", color: "teal" },
+  { title: "15:00", color: "cyan" },
+  { title: "16:00", color: "orange" },
+  { title: "17:00", color: "orange" },
+  { title: "18:00", color: "orange" },
 ];
 
 const Agendar = () => {
@@ -242,6 +297,22 @@ const Agendar = () => {
     >
       {link.label}
     </a>
+  ));
+
+  const cita_hours = mockdata.map((item) => (
+    /*  <UnstyledButton key={item.title} className={classes.item_hour}>
+      <Text size="md">{item.title}</Text>
+    </UnstyledButton> */
+
+    <Badge
+      variant="gradient"
+      key={item.title}
+      gradient={{ from: "cyan", to: "#77d8f3" }}
+      className={classes.item_hourb}
+    >
+      {" "}
+      <Text size="md">{item.title}</Text>
+    </Badge>
   ));
 
   return (
@@ -343,32 +414,45 @@ const Agendar = () => {
                 mt="xl"
                 breakpoints={[{ maxWidth: "sm", cols: 1 }]}
               >
-                <DatePicker
-                  required
-                  locale="es-us"
-                  allowLevelChange={false}
-                  label="Fecha de la Cita"
-                  placeholder="Elija una fecha"
-                  renderDay={(date) => {
-                    const day = date.getDate();
-                    return (
-                      <Indicator
-                        size={6}
-                        color="red"
-                        offset={8}
-                        disabled={day !== 15}
-                      >
-                        <div>{day}</div>
-                      </Indicator>
-                    );
-                  }}
-                  icon={<IconCalendar size={16} />}
-                />
-                <TextInput
-                  required
-                  label="Teléfono"
-                  placeholder="Teléfono del paciente"
-                />
+                <Container>
+                  <DatePicker
+                    required
+                    locale="es-us"
+                    allowLevelChange={false}
+                    label="Fecha de la Cita"
+                    placeholder="Elija una fecha"
+                    renderDay={(date) => {
+                      const day = date.getDate();
+                      return (
+                        <Indicator
+                          size={6}
+                          color="red"
+                          offset={8}
+                          disabled={day !== 15}
+                        >
+                          <div>{day}</div>
+                        </Indicator>
+                      );
+                    }}
+                    icon={<IconCalendar size={16} />}
+                  />
+                </Container>
+
+                <Container>
+                  <Card withBorder radius="md" className={classes.card}>
+                    <Group position="apart">
+                      <Text className={classes.title_card}>
+                        Horarios Disponibles
+                      </Text>
+                      <Anchor size="xs" color="dimmed" sx={{ lineHeight: 1 }}>
+                        * Seleccione un horario
+                      </Anchor>
+                    </Group>
+                    <SimpleGrid cols={3} mt="md">
+                      {cita_hours}
+                    </SimpleGrid>
+                  </Card>
+                </Container>
               </SimpleGrid>
             </Stepper.Step>
 
@@ -377,8 +461,9 @@ const Agendar = () => {
               description="Comfirmación de la Cita"
               allowStepSelect={active > 2}
             >
-              Paso 3: comfirmación de la cita
+              <Loader size="xl" />
             </Stepper.Step>
+
             <Stepper.Completed>
               Cita Agendada, gracias por usas nuestros servicios
             </Stepper.Completed>
