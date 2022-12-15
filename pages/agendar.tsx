@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { DatePicker } from "@mantine/dates";
 import {
   Stepper,
   Button,
@@ -11,14 +12,22 @@ import {
   ActionIcon,
   Paper,
   createStyles,
+  Stack,
+  TextInput,
+  SimpleGrid,
+  MultiSelect,
+  NumberInput,
+  Indicator,
 } from "@mantine/core";
 import {
   IconCheck,
   IconBrandTwitter,
   IconBrandYoutube,
   IconBrandInstagram,
+  IconCalendar,
 } from "@tabler/icons";
 import { useDisclosure } from "@mantine/hooks";
+import "dayjs/locale/es-us";
 
 const HEADER_HEIGHT = 60;
 const useStyles = createStyles((theme) => ({
@@ -274,15 +283,95 @@ const Agendar = () => {
               description="Registrarse"
               allowStepSelect={active > 0}
             >
-              Paso 1: registrarse
+              <Stack>
+                <SimpleGrid
+                  cols={2}
+                  mt="xl"
+                  breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+                >
+                  <TextInput
+                    required
+                    label="Nombre"
+                    placeholder="Nombre del paciente"
+                  />
+                  <TextInput
+                    required
+                    label="Apellido"
+                    placeholder="Apellido del paciente"
+                  />
+                </SimpleGrid>
+
+                <SimpleGrid
+                  cols={2}
+                  mt="xl"
+                  breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+                >
+                  <NumberInput
+                    required
+                    label="Edad"
+                    placeholder="Edad del paciente"
+                  />
+                  <TextInput
+                    required
+                    label="Teléfono"
+                    placeholder="Teléfono del paciente"
+                  />
+                </SimpleGrid>
+
+                <MultiSelect
+                  required
+                  mt="xl"
+                  data={[
+                    "No habla",
+                    "Sindrome de Down",
+                    "Recomendación Profesora",
+                  ]}
+                  label="Motivo de Consulta"
+                  placeholder="Motivos por los cuales considera que el paciente necesita terapia"
+                  description="Debe elegir uno o varios motivos"
+                />
+              </Stack>
             </Stepper.Step>
+
             <Stepper.Step
               label="Agendar Cita"
               description="Seleccione la fecha y hora"
               allowStepSelect={active > 1}
             >
-              Paso 2: escoger hora y fecha de la cita
+              <SimpleGrid
+                cols={2}
+                mt="xl"
+                breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+              >
+                <DatePicker
+                  required
+                  locale="es-us"
+                  allowLevelChange={false}
+                  label="Fecha de la Cita"
+                  placeholder="Elija una fecha"
+                  renderDay={(date) => {
+                    const day = date.getDate();
+                    return (
+                      <Indicator
+                        size={6}
+                        color="red"
+                        offset={8}
+                        disabled={day !== 15}
+                      >
+                        <div>{day}</div>
+                      </Indicator>
+                    );
+                  }}
+                  icon={<IconCalendar size={16} />}
+                />
+                <TextInput
+                  required
+                  label="Teléfono"
+                  placeholder="Teléfono del paciente"
+                />
+              </SimpleGrid>
             </Stepper.Step>
+
             <Stepper.Step
               label="Confirmación"
               description="Comfirmación de la Cita"
