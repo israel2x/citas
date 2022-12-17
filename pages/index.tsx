@@ -27,6 +27,7 @@ import imageSVG from "../public/image.svg";
 import Thalia_Bustamante_La_Troncal from "../public/Thalia_Bustamante_La_Troncal.png";
 import Router from "next/router";
 import Head from "next/head";
+import Link from "next/link";
 
 const HEADER_HEIGHT = 60;
 
@@ -240,7 +241,7 @@ const Home = () => {
   ));
 
   const handleAgendarCitas = () => {
-    Router.push("/board");
+    //Router.push("/board");
   };
 
   return (
@@ -329,14 +330,20 @@ const Home = () => {
             </List>
 
             <Group mt={30}>
-              <Button
-                radius="xl"
-                size="md"
-                className={classes.control}
-                onClick={handleAgendarCitas}
+              <Link
+                href={"https://web.whatsapp.com/send?phone=593959997375"}
+                passHref={true}
+                target={"_blank"}
               >
-                Agendar Cita
-              </Button>
+                <Button
+                  radius="xl"
+                  size="md"
+                  className={classes.control}
+                  onClick={handleAgendarCitas}
+                >
+                  Agendar Cita
+                </Button>
+              </Link>
               {/*  <Button
                 variant="default"
                 radius="xl"
