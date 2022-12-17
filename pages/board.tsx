@@ -6,9 +6,8 @@ import { ModalsProvider } from "@mantine/modals";
 import { StoreProvider } from "easy-peasy";
 import { store } from "../util/store/store";
 import InicioLayout from "../util/components/inicioLayout";
-import Home from ".";
 
-function Application({ Component, pageProps }) {
+const Board = ({ Component, pageProps }) => {
   const [colorScheme, setColorScheme] = useState("light");
 
   const toggleColorScheme = () => {
@@ -27,7 +26,7 @@ function Application({ Component, pageProps }) {
           property="og:title"
           content="Centro de Terapia de Lenguaje"
         ></meta>
-        <link rel="icon" href="/abc.png" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <ColorSchemeProvider colorScheme={colorScheme}>
@@ -36,13 +35,23 @@ function Application({ Component, pageProps }) {
           withNormalizeCSS
           withGlobalStyles
         >
-          <Home />
+          <NotificationsProvider>
+            <ModalsProvider>
+              <StoreProvider store={store}>
+                {Component.authPage ? (
+                  <Component {...pageProps} />
+                ) : (
+                  <InicioLayout>
+                    <Component {...pageProps} />
+                  </InicioLayout>
+                )}
+              </StoreProvider>
+            </ModalsProvider>
+          </NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>
   );
-}
+};
 
-Application.authPage = true;
-
-export default Application;
+export default Board;
