@@ -27,6 +27,10 @@ function Application({ Component, pageProps }) {
           property="og:title"
           content="Centro de Terapia de Lenguaje"
         ></meta>
+        <meta
+          name="google-site-verification"
+          content="A-hWPVd5Unw24f6yeXjp3guglWLGkaitLIA30OB5EIw"
+        />
         <link rel="icon" href="/abc.png" />
       </Head>
 
