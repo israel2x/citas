@@ -331,7 +331,9 @@ const Home = () => {
 
             <Group mt={30}>
               <Link
-                href={"https://web.whatsapp.com/send?phone=593959997375"}
+                href={
+                  "https://api.whatsapp.com/send/?phone=593959997375&text&type=phone_number&app_absent=0"
+                }
                 passHref={true}
                 target={"_blank"}
               >
